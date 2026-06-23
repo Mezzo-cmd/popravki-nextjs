@@ -22,9 +22,9 @@ let cleanupCounter = 0;
 function maybeCleanup() {
   if (++cleanupCounter % 500 !== 0) return;
   const now = Date.now();
-  for (const [key, val] of rateLimitMap.entries()) {
+  Array.from(rateLimitMap.entries()).forEach(([key, val]) => {
     if (now > val.resetAt) rateLimitMap.delete(key);
-  }
+  });
 }
 
 export async function middleware(request: NextRequest) {
