@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0A0A0C;
+  --surface: #131316;
+  --s2: #1A1A1F;
+  --s3: #222228;
+  --accent: #00E5A0;
+  --a2: #FFB800;
+  --danger: #FF5757;
+  --blue: #4A9EFF;
+  --text: #F2F2F2;
+  --muted: #888896;
+  --border: #252530;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-inter), sans-serif;
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* Scrollbar hidden for horizontal */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+@layer utilities {
+  .text-accent { color: var(--accent); }
+  .text-a2 { color: var(--a2); }
+  .text-danger { color: var(--danger); }
+  .text-muted-custom { color: var(--muted); }
+  .bg-surface { background: var(--surface); }
+  .bg-s2 { background: var(--s2); }
+  .bg-s3 { background: var(--s3); }
+  .border-custom { border-color: var(--border); }
+  .font-heading { font-family: var(--font-syne), sans-serif; }
+}
