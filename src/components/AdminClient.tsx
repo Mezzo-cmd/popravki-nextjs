@@ -22,7 +22,7 @@ export default function AdminClient({ masters: initial }: Props) {
   const showToast = (msg: string) => { setToast(msg); setTimeout(() => setToast(""), 2500); };
 
   const cities = useMemo(() =>
-    [...new Set(masters.map((m) => m.city))].sort((a, b) => a.localeCompare(b, "bg")),
+    Array.from(new Set(masters.map((m) => m.city))).sort((a, b) => a.localeCompare(b, "bg")),
     [masters]
   );
 
