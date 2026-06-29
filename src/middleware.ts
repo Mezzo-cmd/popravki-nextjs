@@ -1,8 +1,11 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co";
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder-key";
+const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || "placeholder-service-key";
+
 // ── Rate Limiter (in-memory, Edge-compatible) ──────────────────────────────
-// Пази IP → { count, resetAt }
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 
 function rateLimit(ip: string, limit: number, windowMs: number): boolean {
@@ -10,14 +13,13 @@ function rateLimit(ip: string, limit: number, windowMs: number): boolean {
   const entry = rateLimitMap.get(ip);
   if (!entry || now > entry.resetAt) {
     rateLimitMap.set(ip, { count: 1, resetAt: now + windowMs });
-    return true; // OK
+    return true;
   }
-  if (entry.count >= limit) return false; // блокиран
+  if (entry.count >= limit) return false;
   entry.count++;
-  return true; // OK
+  return true;
 }
 
-// Почиства стари записи на всеки ~500 заявки
 let cleanupCounter = 0;
 function maybeCleanup() {
   if (++cleanupCounter % 500 !== 0) return;
@@ -55,58 +57,65 @@ export async function middleware(request: NextRequest) {
 
   let supabaseResponse = NextResponse.next({ request });
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() { return request.cookies.getAll(); },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value)
-          );
-          supabaseResponse = NextResponse.next({ request });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
-          );
+  try {
+    const supabase = createServerClient(
+      SUPABASE_URL,
+      SUPABASE_ANON_KEY,
+      {
+        cookies: {
+          getAll() { return request.cookies.getAll(); },
+          setAll(cookiesToSet) {
+            cookiesToSet.forEach(({ name, value }) =>
+              request.cookies.set(name, value)
+            );
+            supabaseResponse = NextResponse.next({ request });
+            cookiesToSet.forEach(({ name, value, options }) =>
+              supabaseResponse.cookies.set(name, value, options)
+            );
+          },
         },
-      },
+      }
+    );
+
+    const { data: { user } } = await supabase.auth.getUser();
+
+    // Защита на admin маршрути
+    if (path.startsWith("/admin")) {
+      if (!user) {
+        return NextResponse.redirect(new URL("/login?redirect=/admin", request.url));
+      }
+      const supabaseAdmin = createServerClient(
+        SUPABASE_URL,
+        SUPABASE_SERVICE_KEY,
+        { cookies: { getAll: () => [], setAll: () => {} } }
+      );
+      const { data: profile } = await supabaseAdmin
+        .from("profiles")
+        .select("role")
+        .eq("id", user.id)
+        .single();
+      if (profile?.role !== "admin") {
+        return NextResponse.redirect(new URL("/?error=unauthorized", request.url));
+      }
     }
-  );
 
-  const { data: { user } } = await supabase.auth.getUser();
+    // Защита на майсторски dashboard
+    if (path.startsWith("/dashboard")) {
+      if (!user) {
+        return NextResponse.redirect(new URL("/login?redirect=/dashboard", request.url));
+      }
+    }
 
-  // Защита на admin маршрути
-  if (path.startsWith("/admin")) {
-    if (!user) {
+    // Вече логнат потребител → пренасочи от /login
+    if ((path === "/login" || path === "/register") && user) {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+  } catch (err) {
+    console.error("Middleware error:", err);
+    // При грешка — позволи заявката да мине
+    if (path.startsWith("/admin")) {
       return NextResponse.redirect(new URL("/login?redirect=/admin", request.url));
     }
-    // Проверка за admin роля — с service role за да заобиколим RLS
-    const supabaseAdmin = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!,
-      { cookies: { getAll: () => [], setAll: () => {} } }
-    );
-    const { data: profile } = await supabaseAdmin
-      .from("profiles")
-      .select("role")
-      .eq("id", user.id)
-      .single();
-    if (profile?.role !== "admin") {
-      return NextResponse.redirect(new URL("/?error=unauthorized", request.url));
-    }
-  }
-
-  // Защита на майсторски dashboard
-  if (path.startsWith("/dashboard")) {
-    if (!user) {
-      return NextResponse.redirect(new URL("/login?redirect=/dashboard", request.url));
-    }
-  }
-
-  // Вече логнат потребител → пренасочи от /login
-  if ((path === "/login" || path === "/register") && user) {
-    return NextResponse.redirect(new URL("/", request.url));
   }
 
   return supabaseResponse;
