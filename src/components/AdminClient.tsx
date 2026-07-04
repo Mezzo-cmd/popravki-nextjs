@@ -76,7 +76,7 @@ export default function AdminClient({ masters: initial }: Props) {
       <nav style={{ background:"var(--surface)",borderBottom:"1px solid var(--border)",padding:"0 1.5rem",display:"flex",alignItems:"center",justifyContent:"space-between",height:54 }}>
         <Link href="/" style={{ display:"flex",alignItems:"center",gap:8,fontFamily:"var(--font-syne)",fontSize:16,fontWeight:800,color:"var(--text)",textDecoration:"none" }}>
           <div style={{ width:30,height:30,background:"var(--accent)",borderRadius:7,display:"flex",alignItems:"center",justifyContent:"center" }}>🔧</div>
-          Popravki<span style={{ color:"var(--accent)" }}>.bg</span>
+          Popravki<span style={{ color:"var(--accent)" }}>.net</span>
         </Link>
         <div style={{ display:"flex",alignItems:"center",gap:10 }}>
           <span style={{ background:"rgba(255,87,87,.12)",border:"1px solid rgba(255,87,87,.3)",color:"var(--danger)",borderRadius:20,padding:"4px 12px",fontSize:11,fontWeight:700 }}>🔐 АДМИН</span>

@@ -41,7 +41,7 @@ export default function Nav({ userId, favCount = 0 }: Props) {
     }}>
       <Link href="/" style={{ display:"flex",alignItems:"center",gap:8,fontFamily:"var(--font-syne)",fontSize:16,fontWeight:800,color:"var(--text)",textDecoration:"none" }}>
         <div style={{ width:30,height:30,background:"var(--accent)",borderRadius:7,display:"flex",alignItems:"center",justifyContent:"center",fontSize:15 }}>🔧</div>
-        Popravki<span style={{ color:"var(--accent)" }}>.bg</span>
+        Popravki<span style={{ color:"var(--accent)" }}>.net</span>
       </Link>
 
       <div style={{ display:"flex",alignItems:"center",gap:6 }}>
