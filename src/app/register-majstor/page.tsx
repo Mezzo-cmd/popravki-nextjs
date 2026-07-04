@@ -142,7 +142,7 @@ export default function RegisterMajstorPage() {
       <div style={{ minHeight:"100vh",background:"var(--bg)",display:"flex",alignItems:"center",justifyContent:"center",padding:"1rem" }}>
         <div style={{ background:"var(--surface)",border:"1px solid var(--border)",borderRadius:20,padding:"2.5rem",maxWidth:460,width:"100%",textAlign:"center" }}>
           <div style={{ fontSize:56,marginBottom:12 }}>🎉</div>
-          <h2 style={{ fontFamily:"var(--font-syne)",fontSize:22,fontWeight:800,marginBottom:8 }}>Добре дошъл в Popravki.bg!</h2>
+          <h2 style={{ fontFamily:"var(--font-syne)",fontSize:22,fontWeight:800,marginBottom:8 }}>Добре дошъл в Popravki.net!</h2>
           <p style={{ fontSize:14,color:"var(--muted)",lineHeight:1.6,marginBottom:"1.2rem" }}>Профилът ти е изпратен за проверка. Ще се свържем с теб до 24 часа.</p>
           <div style={{ display:"flex",flexDirection:"column",gap:8,marginBottom:"1.2rem",textAlign:"left" }}>
             {["Ще получиш имейл за потвърждение","Екипът ни верифицира профила ти","Профилът ти се появява в търсачката","Клиентите започват да се обаждат 📞"].map((s,i) => (
@@ -154,7 +154,7 @@ export default function RegisterMajstorPage() {
           </div>
           <button onClick={() => router.push("/")}
             style={{ display:"block",width:"100%",padding:13,background:"var(--accent)",color:"#000",border:"none",borderRadius:11,fontFamily:"var(--font-syne)",fontSize:14,fontWeight:700,cursor:"pointer" }}>
-            ← Обратно към Popravki.bg
+            ← Обратно към Popravki.net
           </button>
         </div>
       </div>
