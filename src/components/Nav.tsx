@@ -46,7 +46,7 @@ export default function Nav({ userId, favCount = 0 }: Props) {
 
       <div style={{ display:"flex",alignItems:"center",gap:6 }}>
         {/* BG / EN toggle */}
-        <div style={{ display:"flex",borderRadius:8,border:"1px solid var(--border)",overflow:"hidden",fontFamily:"var(--font-inter)" }}>
+        <div className="nav-hide-mobile" style={{ display:"flex",borderRadius:8,border:"1px solid var(--border)",overflow:"hidden",fontFamily:"var(--font-inter)" }}>
           {(["bg","en"] as const).map((l) => (
             <button key={l} onClick={() => setLang(l)}
               style={{ padding:"5px 10px",fontSize:11,fontWeight:700,border:"none",cursor:"pointer",background:lang===l?"var(--accent)":"var(--s2)",color:lang===l?"#000":"var(--muted)",textTransform:"uppercase",letterSpacing:".05em",transition:"all .15s" }}>
@@ -56,7 +56,7 @@ export default function Nav({ userId, favCount = 0 }: Props) {
         </div>
 
         {favCount > 0 && (
-          <button style={{ padding:"6px 12px",fontSize:12,fontWeight:600,borderRadius:8,cursor:"pointer",border:"1px solid var(--border)",background:"var(--s2)",color:"var(--muted)",fontFamily:"var(--font-inter)" }}>
+          <button className="nav-hide-mobile" style={{ padding:"6px 12px",fontSize:12,fontWeight:600,borderRadius:8,cursor:"pointer",border:"1px solid var(--border)",background:"var(--s2)",color:"var(--muted)",fontFamily:"var(--font-inter)" }}>
             ❤️ {t.nav.favorites} <span style={{ background:"var(--danger)",color:"#fff",borderRadius:"50%",padding:"0 5px",fontSize:10,marginLeft:4 }}>{favCount}</span>
           </button>
         )}

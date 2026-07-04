@@ -166,7 +166,7 @@ export default function HomeClient({ initialMasters, userId, initialFavorites }:
       <div style={{ background: "var(--surface)", borderBottom: "1px solid var(--border)", padding: "1.2rem 1rem" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div style={{ fontSize: 11, color: "var(--muted)", textTransform: "uppercase", letterSpacing: ".08em", fontWeight: 600, marginBottom: 10, textAlign: "center" }}>{t.categories.title}</div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(100px, 1fr))", gap: 8 }}>
+          <div className="trade-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(100px, 1fr))", gap: 8 }}>
             {TRADES.map((tr) => (
               <button key={tr.id} onClick={() => { setTrade(trade === tr.id ? "" : tr.id); setCategory("all"); }}
                 style={{
@@ -198,7 +198,7 @@ export default function HomeClient({ initialMasters, userId, initialFavorites }:
 
       {/* STICKY SEARCH */}
       <div style={{ background: "var(--surface)", borderBottom: "1px solid var(--border)", padding: ".8rem 1rem", position: "sticky", top: 54, zIndex: 90 }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", gap: 8 }}>
+        <div className="search-bar" style={{ maxWidth: 1200, margin: "0 auto", display: "flex", gap: 8 }}>
           <div style={{ flex: 1, background: "var(--s2)", border: "1px solid var(--border)", borderRadius: 14, display: "flex", alignItems: "center", gap: 8, padding: "0 12px" }}>
             <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
             <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t.search.placeholder}
@@ -259,10 +259,10 @@ export default function HomeClient({ initialMasters, userId, initialFavorites }:
       </div>
 
       {/* MAIN LAYOUT — ляв сайдбар + контент */}
-      <div style={{ maxWidth:1200,margin:"0 auto",padding:"0 1rem",display:"flex",gap:20,alignItems:"flex-start" }}>
+      <div className="main-layout" style={{ maxWidth:1200,margin:"0 auto",padding:"0 1rem",display:"flex",gap:20,alignItems:"flex-start" }}>
 
         {/* ── ЛЯВ САЙДБАР — Реклама ── */}
-        <div style={{ width:220,flexShrink:0,position:"sticky",top:110,display:"flex",flexDirection:"column",gap:12 }}>
+        <div className="sidebar-left" style={{ width:220,flexShrink:0,position:"sticky",top:110,display:"flex",flexDirection:"column",gap:12 }}>
           <div style={{
             background:"linear-gradient(160deg,#0d2018 0%,#091a10 100%)",
             border:"1px solid rgba(0,229,160,.25)",
@@ -348,7 +348,7 @@ export default function HomeClient({ initialMasters, userId, initialFavorites }:
       </div>
 
       {/* TOOLBAR */}
-      <div style={{ padding:".4rem 0 .6rem",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:8 }}>
+      <div className="toolbar" style={{ padding:".4rem 0 .6rem",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:8 }}>
         <span style={{ fontSize:13,color:"var(--muted)" }}>{t.filters.found} <b style={{ color:"var(--text)" }}>{filtered.length}</b></span>
         <div style={{ display:"flex",gap:8,alignItems:"center" }}>
           <div style={{ display:"flex",gap:5,alignItems:"center" }}>
@@ -375,7 +375,7 @@ export default function HomeClient({ initialMasters, userId, initialFavorites }:
       <div style={{ padding:"0 0 1rem" }}>
         <div style={{
           display: "grid",
-          gridTemplateColumns: view==="list" ? "1fr" : "repeat(auto-fill,minmax(200px,1fr))",
+          gridTemplateColumns: view==="list" ? "1fr" : "repeat(auto-fill,minmax(160px,1fr))",
           gap: 12,
         }}>
           {filtered.length === 0 ? (
@@ -407,7 +407,7 @@ export default function HomeClient({ initialMasters, userId, initialFavorites }:
         </div>{/* end дясна колона */}
 
         {/* ── ДЕСЕН САЙДБАР — Реклама за клиенти ── */}
-        <div style={{ width:220,flexShrink:0,position:"sticky",top:110,display:"flex",flexDirection:"column",gap:12 }}>
+        <div className="sidebar-right" style={{ width:220,flexShrink:0,position:"sticky",top:110,display:"flex",flexDirection:"column",gap:12 }}>
           <div style={{
             background:"linear-gradient(160deg,#0d1829 0%,#091018 100%)",
             border:"1px solid rgba(74,158,255,.25)",
