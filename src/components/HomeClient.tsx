@@ -126,7 +126,7 @@ export default function HomeClient({ initialMasters, userId, initialFavorites }:
       <Nav userId={userId} favCount={favorites.length} />
 
       {/* HERO */}
-      <div style={{ background: "linear-gradient(135deg,var(--bg) 0%,#0d1a11 60%,var(--bg) 100%)", borderBottom: "1px solid var(--border)", padding: "1.8rem 1rem 1.5rem" }}>
+      <div className="hero-section" style={{ background: "linear-gradient(135deg,var(--bg) 0%,#0d1a11 60%,var(--bg) 100%)", borderBottom: "1px solid var(--border)", padding: "1.8rem 1rem 1.5rem" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <h1 style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(1.5rem,5vw,2.4rem)", fontWeight: 800, letterSpacing: "-.03em", lineHeight: 1.1, marginBottom: 6 }}>
             {t.hero.title} <span style={{ color: "var(--accent)" }}>{t.hero.titleAccent}</span>
@@ -163,7 +163,7 @@ export default function HomeClient({ initialMasters, userId, initialFavorites }:
       </div>
 
       {/* КАТЕГОРИЙНА РЕШЕТКА */}
-      <div style={{ background: "var(--surface)", borderBottom: "1px solid var(--border)", padding: "1.2rem 1rem" }}>
+      <div className="filter-section" style={{ background: "var(--surface)", borderBottom: "1px solid var(--border)", padding: "1.2rem 1rem" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div style={{ fontSize: 11, color: "var(--muted)", textTransform: "uppercase", letterSpacing: ".08em", fontWeight: 600, marginBottom: 10, textAlign: "center" }}>{t.categories.title}</div>
           <div className="trade-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(100px, 1fr))", gap: 8 }}>
@@ -350,8 +350,8 @@ export default function HomeClient({ initialMasters, userId, initialFavorites }:
       {/* TOOLBAR */}
       <div className="toolbar" style={{ padding:".4rem 0 .6rem",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:8 }}>
         <span style={{ fontSize:13,color:"var(--muted)" }}>{t.filters.found} <b style={{ color:"var(--text)" }}>{filtered.length}</b></span>
-        <div style={{ display:"flex",gap:8,alignItems:"center" }}>
-          <div style={{ display:"flex",gap:5,alignItems:"center" }}>
+        <div className="toolbar-sorts" style={{ display:"flex",gap:8,alignItems:"center",flexWrap:"wrap" }}>
+          <div style={{ display:"flex",gap:5,alignItems:"center",flexWrap:"wrap" }}>
             <span style={{ fontSize:11,color:"var(--muted)" }}>{t.filters.sort}</span>
             {(["rating","exp","jobs","name"] as const).map((s) => (
               <button key={s} onClick={() => setSort(s)}
@@ -373,7 +373,7 @@ export default function HomeClient({ initialMasters, userId, initialFavorites }:
 
       {/* MASTER GRID */}
       <div style={{ padding:"0 0 1rem" }}>
-        <div style={{
+        <div className={view !== "list" ? "master-grid" : ""} style={{
           display: "grid",
           gridTemplateColumns: view==="list" ? "1fr" : "repeat(auto-fill,minmax(160px,1fr))",
           gap: 12,

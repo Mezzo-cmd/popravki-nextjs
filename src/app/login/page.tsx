@@ -55,7 +55,7 @@ function LoginForm() {
       <div style={{ background:"var(--surface)",border:"1px solid var(--border)",borderRadius:20,padding:"2rem",maxWidth:380,width:"100%" }}>
         <Link href="/" style={{ display:"flex",alignItems:"center",gap:8,fontFamily:"var(--font-syne)",fontSize:16,fontWeight:800,color:"var(--text)",textDecoration:"none",marginBottom:"1.5rem",justifyContent:"center" }}>
           <div style={{ width:30,height:30,background:"var(--accent)",borderRadius:7,display:"flex",alignItems:"center",justifyContent:"center" }}>🔧</div>
-          Popravki<span style={{ color:"var(--accent)" }}>.bg</span>
+          Popravki<span style={{ color:"var(--accent)" }}>.net</span>
         </Link>
 
         {/* Tabs */}

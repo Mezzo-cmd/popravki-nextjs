@@ -50,7 +50,7 @@ body {
   .sidebar-left, .sidebar-right { display: none !important; }
 
   /* Main layout: single column */
-  .main-layout { flex-direction: column !important; gap: 0 !important; }
+  .main-layout { flex-direction: column !important; gap: 0 !important; padding: 0 .75rem !important; }
 
   /* Search bar: stack vertically */
   .search-bar { flex-direction: column !important; gap: 8px !important; }
@@ -60,14 +60,26 @@ body {
   .nav-hide-mobile { display: none !important; }
 
   /* Toolbar: wrap better */
-  .toolbar { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; }
+  .toolbar { flex-direction: column !important; align-items: flex-start !important; gap: 6px !important; }
   .toolbar-sorts { flex-wrap: wrap !important; gap: 5px !important; }
 
   /* Category grid: smaller cells on mobile */
-  .trade-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)) !important; gap: 6px !important; }
-  .trade-grid button { padding: 10px 6px !important; }
-  .trade-grid span:first-child { font-size: 22px !important; }
+  .trade-grid { grid-template-columns: repeat(auto-fill, minmax(75px, 1fr)) !important; gap: 5px !important; }
 
   /* Master grid: 2 columns on mobile */
   .master-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* Featured cards: smaller on mobile */
+  .featured-cards > div { min-width: 120px !important; }
+
+  /* Reduce hero padding */
+  .hero-section { padding: 1.2rem .75rem 1rem !important; }
+
+  /* Filter section padding */
+  .filter-section { padding: .5rem .75rem !important; }
+}
+
+@media (max-width: 400px) {
+  /* Very small phones: hide logout text, keep only icon */
+  .nav-logout-text { display: none !important; }
 }
