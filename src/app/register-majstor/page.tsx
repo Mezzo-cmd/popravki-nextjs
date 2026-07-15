@@ -115,9 +115,21 @@ export default function RegisterMajstorPage() {
 
     if (authErr) { setError(authErr.message); setLoading(false); return; }
 
+    const userId = authData.user?.id ?? null;
+
+    // Ръчно създай профил (backup ако тригерът не е тръгнал)
+    if (userId) {
+      await supabase.from("profiles").insert({
+        id: userId,
+        name,
+        role: "master",
+        phone,
+      }).then(() => {}).catch(() => {});
+    }
+
     // Запис в masters таблица
     const { error: masterErr } = await supabase.from("masters").insert({
-      profile_id: authData.user?.id ?? null,
+      profile_id: userId,
       name, phone, email, city,
       trade: trades[0],
       trades,
