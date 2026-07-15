@@ -46,15 +46,28 @@ body {
 
 /* ── Mobile Responsive ─────────────────────────────── */
 @media (max-width: 768px) {
+  /* Prevent any horizontal overflow */
+  html, body { overflow-x: hidden !important; max-width: 100vw !important; }
+
   /* Hide sidebars on mobile */
   .sidebar-left, .sidebar-right { display: none !important; }
 
-  /* Main layout: single column */
-  .main-layout { flex-direction: column !important; gap: 0 !important; padding: 0 .75rem !important; }
+  /* Main layout: single column, full width */
+  .main-layout {
+    flex-direction: column !important;
+    gap: 0 !important;
+    padding: 0 .75rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Right column fills full width */
+  .main-layout > div { width: 100% !important; min-width: 0 !important; max-width: 100% !important; }
 
   /* Search bar: stack vertically */
   .search-bar { flex-direction: column !important; gap: 8px !important; }
-  .search-bar > * { min-width: unset !important; width: 100% !important; }
+  .search-bar > * { min-width: unset !important; width: 100% !important; box-sizing: border-box !important; }
 
   /* Nav: hide non-essential buttons */
   .nav-hide-mobile { display: none !important; }
@@ -66,20 +79,19 @@ body {
   /* Category grid: smaller cells on mobile */
   .trade-grid { grid-template-columns: repeat(auto-fill, minmax(75px, 1fr)) !important; gap: 5px !important; }
 
-  /* Master grid: 2 columns on mobile */
-  .master-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  /* Master grid: exactly 2 columns on mobile */
+  .master-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
 
-  /* Featured cards: smaller on mobile */
-  .featured-cards > div { min-width: 120px !important; }
+  /* Master cards: don't overflow */
+  .master-grid > * { min-width: 0 !important; max-width: 100% !important; overflow: hidden !important; }
 
   /* Reduce hero padding */
   .hero-section { padding: 1.2rem .75rem 1rem !important; }
 
   /* Filter section padding */
   .filter-section { padding: .5rem .75rem !important; }
-}
-
-@media (max-width: 400px) {
-  /* Very small phones: hide logout text, keep only icon */
-  .nav-logout-text { display: none !important; }
 }
